@@ -34,7 +34,7 @@ function playRound(playerSelection, computerSelection) {
     
     //return if tie
     if (lowerPlayerSelection === lowerComputerSelection) {
-       result = 'No one wins! ' + 'You both chose ' + computerSelection;
+       result = "It's a tie! " + 'You both chose ' + computerSelection;
        return result;
     }
     //combine strings
@@ -56,8 +56,8 @@ function playRound(playerSelection, computerSelection) {
     //retry if theres no result from previous call
     combination=lowerComputerSelection+lowerPlayerSelection;
     resultCombination = getResult(combination);
-    you  = 'Computer';
-    return result = getResult(combination);
+    you  = 'Computer ';
+    return result = you+getResult(combination);
 
 }
 //get result function determines who won based on combi
@@ -83,10 +83,57 @@ function getResult(combination) {
  
 
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(computerSelection);
+//const playerSelection = "ROCK";
+//const computerSelection = getComputerChoice();
+//console.log(computerSelection);
 
 //print whoever wins
-console.log(playRound(playerSelection, computerSelection));
+//console.log(playRound(playerSelection, computerSelection));
 
+
+//game
+function game() {
+    //variables
+    let playerSelection2 = '';
+    let computerSelection2 = '';
+    let result2 ='';
+    let youScore = 0;
+    let computerScore=0;
+    for (let i=0;i<5;i++){
+        //prompt for user input
+       playerSelection2 = prompt ('Rock, Paper or Scissors?');
+       computerSelection2 = getComputerChoice();
+       //call round
+       result2 = playRound(playerSelection2, computerSelection2);
+       //display
+       console.log(result2);
+       //count scores
+       switch (true) {
+        case (result2.includes('You') && result2.includes('Won')):
+            youScore++;
+            break;
+        case (result2.includes('Computer') && result2.includes('Lost')):
+            youScore++;
+            break;
+        case (result2.includes('You') && result2.includes('Lost')):
+            computerScore++;
+            break;
+        case (result2.includes('Computer') && result2.includes('Won')):
+            computerScore++;
+            break;
+       }
+    }
+       //compare scores
+    //console.log(youScore);
+    //console.log(computerScore);
+    if (youScore == computerScore) {
+        console.log(`It's a tie! Both scored ${youScore} out of 5!`)
+        return;
+    }
+    if (youScore>computerScore) {
+      console.log(`You won 5 rounds scoring ${youScore} out of 5!`);
+    } else {
+      console.log(`Computer won 5 rounds scoring ${computerScore} out of 5!`);
+    }
+}
+game();
