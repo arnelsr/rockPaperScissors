@@ -97,9 +97,9 @@ function game() {
     let playerSelection2 = '';
     let computerSelection2 = '';
     let result2 ='';
-    let youScore = 0;
-    let computerScore=0;
-    for (let i=0;i<5;i++){
+    //let youScore = 0;
+    //let computerScore=0;
+   /* for (let i=0;i<5;i++){
         //prompt for user input
        playerSelection2 = prompt ('Rock, Paper or Scissors?');
        computerSelection2 = getComputerChoice();
@@ -122,7 +122,7 @@ function game() {
             computerScore++;
             break;
        }
-    }
+    }*/
        //compare scores
     //console.log(youScore);
     //console.log(computerScore);
@@ -136,4 +136,61 @@ function game() {
       console.log(`Computer won 5 rounds scoring ${computerScore} out of 5!`);
     }
 }
-game();
+//game();
+//scores
+let youScore = 0;
+let computerScore=0;
+//select buttons
+const buttons=document.querySelectorAll('button');
+//click event listener for each button
+buttons.forEach((button)=>{
+    //call computerselection
+   // let computerSelection2 = getComputerChoice();
+   // let result3 = '';
+    button.addEventListener('click',()=>{
+        //click function using arrow/anonymous
+        let computerSelection2 = getComputerChoice();
+        let playerSelection2 = button.innerText;
+        let result3 = '';
+        result3=playRound(computerSelection2,playerSelection2);
+        //select container
+        const div=document.querySelector('div');
+      
+        
+        //count scores
+       switch (true) {
+        case (result3.includes('You') && result3.includes('Won')):
+            youScore++;
+            break;
+        case (result3.includes('Computer') && result3.includes('Lost')):
+            youScore++;
+            break;
+        case (result3.includes('You') && result3.includes('Lost')):
+            computerScore++;
+            break;
+        case (result3.includes('Computer') && result3.includes('Won')):
+            computerScore++;
+            break;
+       }
+         //displayresult
+         switch (true) {
+            case computerScore===5:
+                div.textContent='Computer won 5 rounds! The game is finished!';
+                computerScore=0;
+                youScore=0;
+                break;
+            case youScore===5:
+                div.textContent='You won 5 rounds! The game is finished!';
+                computerScore=0;
+                youScore=0;
+                break;
+            default:
+                div.textContent=result3 + ' ' + 'Computer: ' + computerScore + ' ' + 'You ' + youScore;
+         }
+       
+        
+            
+
+    });
+});
+
